@@ -69,7 +69,7 @@ describe("OracleDb parameters", function() {
       expect(result[0]).to.be.ok;
       expect(result[0].testfloat).to.be.a('string');
       expect(result[0].testdate).to.be.a('string');
-      done();
+      knexClient.destroy(done);
     }).catch(done);
   });
 
@@ -85,7 +85,7 @@ describe("OracleDb parameters", function() {
 
   after(function(done) {
     knexClient.schema.dropTable('fetchAsStringTable').then(function() {
-      done();
+      knexClient.destroy(done);
     }).catch(done);
   });
 });
