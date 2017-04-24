@@ -58,7 +58,6 @@ describe("OracleDb parameters", function() {
 
     it('on float', function() {
       return knexClient.raw('select 7.329 as "field" from dual').then(function(result) {
-        console.log('RESULT : ', result);
         expect(result[0]).to.be.ok;
         expect(result[0].field).to.be.a('string');
       })
