@@ -24,6 +24,8 @@ const trigger = {
     `      BEFORE INSERT on "${tableName}" for each row` +
     `        declare` +
     `        checking number := 1;` +
+    `        mutating_table exception;` +
+    `        PRAGMA EXCEPTION_INIT(mutating_table, -4091);` +
     `        begin` +
     `          if (:new."${to}" is null) then` +
     `            while checking >= 1 loop` +
@@ -32,6 +34,9 @@ const trigger = {
     `              where "${to}" = :new."${to}";` +
     `            end loop;` +
     `          end if;` +
+    `          exception` +
+    `           when mutating_table then` +
+    `           NULL;` +
     `        end;');` +
     `    end if;` +
     `  end if;` +
@@ -56,6 +61,8 @@ const trigger = {
     `  for each row` +
     `  declare` +
     `  checking number := 1;` +
+    `  mutating_table exception;` +
+    `  PRAGMA EXCEPTION_INIT(mutating_table, -4091);` +
     `  begin` +
     `    if (:new."' || PK_NAME || '" is null) then` +
     `      while checking >= 1 loop` +
@@ -64,6 +71,9 @@ const trigger = {
     `        where "' || PK_NAME || '" = :new."' || PK_NAME || '";` +
     `      end loop;` +
     `    end if;` +
+    `    exception` +
+    `    when mutating_table then` +
+    `    NULL;` +
     `  end;'); ` +
     `END;`;
   },
@@ -92,6 +102,8 @@ const trigger = {
     `    BEFORE INSERT on "${to}" for each row` +
     `      declare` +
     `      checking number := 1;` +
+    `      mutating_table exception;` +
+    `      PRAGMA EXCEPTION_INIT(mutating_table, -4091);` +
     `      begin` +
     `        if (:new."' || PK_NAME || '" is null) then` +
     `          while checking >= 1 loop` +
@@ -100,6 +112,9 @@ const trigger = {
     `            where "' || PK_NAME || '" = :new."' || PK_NAME || '";` +
     `          end loop;` +
     `        end if;` +
+    `       exception` +
+    `         when mutating_table then` +
+    `         NULL;` +
     `      end;');` +
     `  end if;` +
     `END;`;
